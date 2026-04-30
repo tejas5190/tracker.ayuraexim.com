@@ -12,7 +12,8 @@
             --growth-green: #15803d;
             --prosperity-gold: #fbbf24;
             --energy-orange: #f97316;
-            --glass-bg: rgba(255, 255, 255, 0.9);
+            /* Lowered opacity from 0.9 to 0.75 so the tractor background is highly visible */
+            --glass-bg: rgba(255, 255, 255, 0.78); 
             --text-dark: #0f172a;
         }
 
@@ -32,14 +33,15 @@
         }
 
         .floating-item {
-            position: absolute; font-size: 2.5rem; opacity: 0.2;
+            position: absolute; font-size: 2.5rem; opacity: 0.25;
             animation: floatUp 15s linear infinite;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
 
         @keyframes floatUp {
             0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.3; }
-            90% { opacity: 0.3; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
@@ -47,35 +49,37 @@
 
         .branding-hero {
             text-align: center; margin-bottom: 30px; animation: bounceIn 1.2s ease;
-            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px);
-            padding: 20px; border-radius: 30px; border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(8px);
+            padding: 20px; border-radius: 30px; border: 2px solid rgba(255,255,255,0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .branding-hero h1 {
             font-weight: 800; font-size: 4.5rem; color: #fff;
-            text-shadow: 4px 4px 0px var(--growth-green), 6px 6px 15px rgba(0,0,0,0.4);
+            text-shadow: 3px 3px 0px var(--growth-green), 5px 5px 15px rgba(0,0,0,0.6);
             margin-bottom: 5px;
         }
 
         .branding-hero p {
             font-weight: 800; color: #fff; background: var(--energy-orange);
             display: inline-block; padding: 8px 25px; border-radius: 50px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2); letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3); letter-spacing: 1px;
         }
 
         .vibrant-card {
-            background: var(--glass-bg); backdrop-filter: blur(12px);
+            background: var(--glass-bg); backdrop-filter: blur(15px);
             border-radius: 35px; padding: 35px; margin-bottom: 30px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            border: 4px solid transparent; transition: 0.4s;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255,255,255,0.6); transition: 0.4s;
         }
 
-        .vibrant-card:hover { border-color: var(--prosperity-gold); transform: translateY(-5px); }
+        .vibrant-card:hover { border-color: var(--prosperity-gold); transform: translateY(-5px); box-shadow: 0 25px 50px rgba(0,0,0,0.4); }
 
         .step-badge {
             display: inline-block; padding: 10px 25px; border-radius: 50px;
             font-weight: 800; color: white; margin-bottom: 20px;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1); letter-spacing: 1px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2); letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
         .bg-blue { background: linear-gradient(45deg, #2563eb, #3b82f6); }
@@ -84,28 +88,33 @@
         .bg-amber { background: linear-gradient(45deg, #d97706, #f59e0b); }
         .bg-red { background: linear-gradient(45deg, #dc2626, #ef4444); }
 
-        .form-control, .form-select { border: 2px solid #cbd5e1; border-radius: 15px; padding: 12px; font-weight: 600; }
-        .form-control:focus { border-color: var(--growth-green); box-shadow: 0 0 0 4px rgba(21, 128, 61, 0.2); }
+        .form-control, .form-select { 
+            border: 2px solid #cbd5e1; border-radius: 15px; padding: 12px; 
+            font-weight: 600; background: rgba(255,255,255,0.9); 
+        }
+        .form-control:focus { border-color: var(--growth-green); box-shadow: 0 0 0 4px rgba(21, 128, 61, 0.3); background: #fff; }
 
         /* Sourcing Profile MCQ Buttons */
         .profile-label {
             padding: 12px 20px; border-radius: 50px; border: 2px solid #cbd5e1;
-            cursor: pointer; font-weight: 700; transition: 0.3s; background: #fff; font-size: 0.95rem;
+            cursor: pointer; font-weight: 800; transition: 0.3s; background: rgba(255,255,255,0.9); font-size: 0.95rem;
+            color: #334155;
         }
-        .chk-imported:checked + .profile-label { background: var(--growth-green); color: white; border-color: var(--prosperity-gold); box-shadow: 0 5px 15px rgba(21, 128, 61, 0.3);}
-        .chk-local:checked + .profile-label { background: #ef4444; color: white; border-color: #991b1b; }
+        .chk-imported:checked + .profile-label { background: var(--growth-green); color: white; border-color: var(--prosperity-gold); box-shadow: 0 5px 15px rgba(21, 128, 61, 0.4);}
+        .chk-local:checked + .profile-label { background: #ef4444; color: white; border-color: #991b1b; box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);}
 
         /* Pulse Pills */
         .p-label {
             padding: 12px 25px; border-radius: 20px; border: 3px solid #cbd5e1; margin: 5px;
-            display: inline-block; cursor: pointer; font-weight: 800; background: #fff; transition: 0.3s;
+            display: inline-block; cursor: pointer; font-weight: 800; background: rgba(255,255,255,0.9); transition: 0.3s;
+            color: #334155;
         }
-        .p-check:checked + .p-label { background: var(--growth-green); color: white; border-color: var(--prosperity-gold); transform: translateY(-3px); }
+        .p-check:checked + .p-label { background: var(--growth-green); color: white; border-color: var(--prosperity-gold); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(21, 128, 61, 0.4); }
 
         .btn-success-sync {
             background: linear-gradient(45deg, #15803d, #22c55e); color: white; font-weight: 800;
-            font-size: 1.8rem; padding: 25px; border-radius: 30px; border: none; width: 100%;
-            box-shadow: 0 20px 40px rgba(21, 128, 61, 0.5); transition: 0.4s; animation: pulse-glow 2s infinite;
+            font-size: 1.8rem; padding: 25px; border-radius: 30px; border: 2px solid rgba(255,255,255,0.5); width: 100%;
+            box-shadow: 0 20px 40px rgba(21, 128, 61, 0.6); transition: 0.4s; animation: pulse-glow 2s infinite;
         }
         .btn-success-sync:hover { transform: scale(1.02); }
 
@@ -146,11 +155,11 @@
                 </div>
             </div>
             
-            <hr class="mt-4 border-2 border-secondary">
+            <hr class="mt-4 mb-4 border-2 border-secondary">
             
             <!-- THE MCQ LOGIC -->
-            <div class="mt-3">
-                <label class="form-label fw-bold text-dark mb-3">SOURCING PROFILE (Select applicable)</label>
+            <div>
+                <label class="form-label fw-bold text-dark mb-3 fs-5">SOURCING PROFILE <span class="text-muted fs-6">(Select applicable)</span></label>
                 <div class="d-flex flex-wrap gap-2">
                     <input type="checkbox" id="chkImported" class="d-none profile-chk chk-imported">
                     <label for="chkImported" class="profile-label">🌍 Deals in Imported Raw Material</label>
@@ -159,36 +168,35 @@
                     <label for="chkBuyUs" class="profile-label">🤝 Willing to Buy From Us</label>
                     
                     <input type="checkbox" id="chkLocal" class="d-none profile-chk chk-local">
-                    <label for="chkLocal" class="profile-label">🚜 Only Buys Local (Skip Extra Fields)</label>
+                    <label for="chkLocal" class="profile-label">🚜 Only Buys Local (Skip Logistics Fields)</label>
                 </div>
             </div>
         </div>
 
-        <!-- EXTENDED FORM (Hidden by default, shown via MCQ) -->
-        <div id="extendedForm" style="display: none;">
-            
-            <!-- 02. Market Intel -->
-            <div class="vibrant-card">
-                <span class="step-badge bg-purple">02. MARKET INTELLIGENCE</span>
-                <p class="text-muted small fw-bold mb-3">Select commodities to enter Retail Dal Rates and Whole Raw Rates:</p>
-                <div class="text-center">
-                    <input type="checkbox" class="p-check d-none p-opt" id="tur" value="tur">
-                    <label class="p-label" for="tur">Tur</label>
-                    <input type="checkbox" class="p-check d-none p-opt" id="chana" value="chana">
-                    <label class="p-label" for="chana">Chana</label>
-                    <input type="checkbox" class="p-check d-none p-opt" id="moong" value="moong">
-                    <label class="p-label" for="moong">Moong</label>
-                    <input type="checkbox" class="p-check d-none p-opt" id="urad" value="urad">
-                    <label class="p-label" for="urad">Urad</label>
-                    <input type="checkbox" class="p-check d-none p-opt" id="masoor" value="masoor">
-                    <label class="p-label" for="masoor">Masoor</label>
-                </div>
-                <div id="rateInputsContainer"></div>
+        <!-- 02. Market Intel (NOW ALWAYS VISIBLE) -->
+        <div class="vibrant-card">
+            <span class="step-badge bg-purple">02. MARKET INTELLIGENCE & RATES</span>
+            <p class="text-dark small fw-bold mb-3">Select commodities to enter Retail Dal Rates and Whole Raw Rates:</p>
+            <div class="text-center">
+                <input type="checkbox" class="p-check d-none p-opt" id="tur" value="tur">
+                <label class="p-label" for="tur">Tur</label>
+                <input type="checkbox" class="p-check d-none p-opt" id="chana" value="chana">
+                <label class="p-label" for="chana">Chana</label>
+                <input type="checkbox" class="p-check d-none p-opt" id="moong" value="moong">
+                <label class="p-label" for="moong">Moong</label>
+                <input type="checkbox" class="p-check d-none p-opt" id="urad" value="urad">
+                <label class="p-label" for="urad">Urad</label>
+                <input type="checkbox" class="p-check d-none p-opt" id="masoor" value="masoor">
+                <label class="p-label" for="masoor">Masoor</label>
             </div>
+            <div id="rateInputsContainer"></div>
+        </div>
 
+        <!-- EXTENDED FORM (Only sections 3 and 4 are hidden if purely local) -->
+        <div id="extendedForm" style="display: none;">
             <!-- 03. Source Logistics -->
             <div class="vibrant-card">
-                <span class="step-badge bg-pink">03. LOGISTICS & SOURCE</span>
+                <span class="step-badge bg-pink">03. IMPORT / SOURCE LOGISTICS</span>
                 <div class="row g-4">
                     <div class="col-md-4">
                         <label class="form-label fw-bold">Quality Grade</label>
@@ -201,7 +209,7 @@
                     </div>
                     <div class="col-md-4">
                         <label class="form-label fw-bold">Origin Country</label>
-                        <input type="text" name="country" class="form-control" placeholder="e.g. India">
+                        <input type="text" name="country" class="form-control" placeholder="e.g. Australia, Myanmar">
                     </div>
                     <div class="col-md-4">
                         <label class="form-label fw-bold">State / Region</label>
@@ -220,16 +228,16 @@
 
             <!-- 04. Business Potential -->
             <div class="vibrant-card">
-                <span class="step-badge bg-amber">04. BUSINESS POTENTIAL</span>
+                <span class="step-badge bg-amber">04. EXPORT & BUSINESS POTENTIAL</span>
                 <div class="row g-4">
-                    <div class="col-md-6 border-end border-2">
+                    <div class="col-md-6 border-end border-2 border-secondary-subtle">
                         <div class="form-check form-switch mb-3">
-                            <input class="form-check-input" type="checkbox" name="exportSupply" id="bp2">
-                            <label class="form-label ms-2" for="bp2">Supply for Our Export?</label>
+                            <input class="form-check-input fs-4" type="checkbox" name="exportSupply" id="bp2">
+                            <label class="form-label ms-2 mt-1 fw-bold" for="bp2">Supply for Our Export?</label>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" name="retailSupply" id="bp3">
-                            <label class="form-label ms-2" for="bp3">Local Retail Supply?</label>
+                            <input class="form-check-input fs-4" type="checkbox" name="retailSupply" id="bp3">
+                            <label class="form-label ms-2 mt-1 fw-bold" for="bp3">Local Retail Supply?</label>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -249,7 +257,7 @@
                     <select name="status" class="form-select">
                         <option>🔥 High Potential</option>
                         <option>⏳ In Discussion</option>
-                        <option>❌ Only Buys Local</option>
+                        <option>🚜 Only Buys Local</option>
                         <option>✅ Closed / Deal</option>
                     </select>
                 </div>
@@ -262,22 +270,23 @@
                     <input type="date" name="followUpDate" class="form-control">
                 </div>
                 <div class="col-12">
-                    <textarea name="remarks" class="form-control" rows="3" placeholder="Additional strategic notes..."></textarea>
+                    <textarea name="remarks" class="form-control" rows="3" placeholder="Strategic notes, competitor mentions, etc..."></textarea>
                 </div>
             </div>
         </div>
 
-        <button type="submit" id="submitBtn" class="btn-success-sync">🚀 SYNC PROSPERITY</button>
+        <button type="submit" id="submitBtn" class="btn-success-sync">🚀 SYNC PROSPERITY TO GOOGLE SHEET</button>
     </form>
 </div>
 
 <script>
-    const URL = "https://script.google.com/macros/s/AKfycbzg3lDLkTtQp8dcRYLmdohne_EFxU1ft1ofM-_wmt_Tf4_KLLsd88LITZFE4r9qwcc4/exec"; // PASTE URL HERE
+    // --- IMPORTANT: PUT YOUR WEB APP URL HERE ---
+    const URL = "https://script.google.com/macros/s/AKfycbzg3lDLkTtQp8dcRYLmdohne_EFxU1ft1ofM-_wmt_Tf4_KLLsd88LITZFE4r9qwcc4/exec"; 
 
-    // Dynamic background floating
+    // Dynamic background floating icons
     const icons = ['🌾', '🚜', '💰', '🏗️', '🌱', '🚚'];
     const bg = document.getElementById('bg-items');
-    for(let i=0; i<15; i++) {
+    for(let i=0; i<18; i++) {
         let span = document.createElement('span');
         span.className = 'floating-item';
         span.innerText = icons[Math.floor(Math.random()*icons.length)];
@@ -286,7 +295,7 @@
         bg.appendChild(span);
     }
 
-    // --- NEW: MCQ Logic Toggle ---
+    // MCQ Logic Toggle (Only hides Sections 3 & 4)
     document.querySelectorAll('.profile-chk').forEach(chk => {
         chk.addEventListener('change', () => {
             const isImported = document.getElementById('chkImported').checked;
@@ -294,7 +303,7 @@
             const isLocal = document.getElementById('chkLocal').checked;
             const extra = document.getElementById('extendedForm');
             
-            // Logic to uncheck conflicts
+            // Uncheck logic
             if (chk.id === 'chkLocal' && isLocal) {
                 document.getElementById('chkImported').checked = false;
                 document.getElementById('chkBuyUs').checked = false;
@@ -302,7 +311,7 @@
                 document.getElementById('chkLocal').checked = false;
             }
 
-            // Show/Hide complex fields
+            // Show/Hide International Logistics and Export Supply
             if (document.getElementById('chkImported').checked || document.getElementById('chkBuyUs').checked) {
                 extra.style.display = 'block';
                 extra.style.animation = 'bounceIn 0.8s ease';
@@ -312,7 +321,7 @@
         });
     });
 
-    // --- NEW: Creates Both Retail & Whole Rates for Excel Columns ---
+    // Creates Both Retail & Whole Rates for Excel Columns
     document.querySelectorAll('.p-opt').forEach(cb => {
         cb.addEventListener('change', () => {
             const container = document.getElementById('rateInputsContainer');
@@ -323,17 +332,17 @@
                     const val = checked.value; 
                     const title = val.charAt(0).toUpperCase() + val.slice(1);
                     const div = document.createElement('div');
-                    div.className = "p-3 rounded-4 row g-3 mt-3 shadow-sm border border-success border-2";
-                    div.style.background = "rgba(21, 128, 61, 0.05)";
+                    div.className = "p-4 rounded-4 row g-3 mt-3 shadow-sm border border-success border-2";
+                    div.style.background = "rgba(255, 255, 255, 0.95)";
                     div.innerHTML = `
-                        <div class="col-12"><h6 class="fw-bold text-success mb-0 border-bottom pb-2 border-success-subtle">${title} Rates</h6></div>
+                        <div class="col-12"><h5 class="fw-bold text-success mb-0 border-bottom pb-2 border-success-subtle">🌾 ${title} Market Rates</h5></div>
                         <div class="col-md-6">
-                            <label class="form-label text-dark fw-bold small">Retail Dal (₹/Qtl)</label>
-                            <input type="number" name="${val}Dal" class="form-control" placeholder="0">
+                            <label class="form-label text-dark fw-bold">Retail Dal (₹/Quintal)</label>
+                            <input type="number" name="${val}Dal" class="form-control fs-5 text-success fw-bold" placeholder="₹">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label text-warning-emphasis fw-bold small">Whole Raw (₹/Qtl)</label>
-                            <input type="number" name="${val}Whole" class="form-control" placeholder="0">
+                            <label class="form-label text-warning-emphasis fw-bold">Whole Raw (₹/Quintal)</label>
+                            <input type="number" name="${val}Whole" class="form-control fs-5 text-warning-emphasis fw-bold" placeholder="₹">
                         </div>
                     `;
                     container.appendChild(div);
@@ -346,25 +355,25 @@
     document.getElementById('sourcingForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
-        btn.disabled = true; btn.innerText = "🚀 UPLOADING...";
+        btn.disabled = true; btn.innerText = "🚀 SYNCING TO GOOGLE SHEETS...";
 
         const fd = new FormData(this);
         const payload = Object.fromEntries(fd.entries());
         
-        // Explicitly capture checkboxes in case they are unchecked (FormData ignores them otherwise)
+        // Capture checkboxes
         payload.buyFromUs = document.getElementById('chkBuyUs').checked;
-        payload.exportSupply = document.getElementById('bp2').checked;
-        payload.retailSupply = document.getElementById('bp3').checked;
+        payload.exportSupply = document.getElementById('bp2') ? document.getElementById('bp2').checked : false;
+        payload.retailSupply = document.getElementById('bp3') ? document.getElementById('bp3').checked : false;
 
         fetch(URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
         .then(() => {
             confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 }, colors: ['#15803d', '#fbbf24', '#f97316', '#ffffff'] });
-            alert("Entry Saved! Data is now perfectly aligned with your Excel Sheet.");
+            alert("✅ Entry Saved! The Data is now perfectly aligned with your Excel Sheet.");
             this.reset();
             document.getElementById('rateInputsContainer').innerHTML = "";
             document.getElementById('extendedForm').style.display = 'none'; // reset view
         }).finally(() => {
-            btn.disabled = false; btn.innerText = "🚀 SYNC PROSPERITY";
+            btn.disabled = false; btn.innerText = "🚀 SYNC PROSPERITY TO GOOGLE SHEET";
         });
     });
 </script>
