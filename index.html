@@ -3,249 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ayura Exim | Sourcing Dashboard</title>
-    <!-- Modern Sans-Serif Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Ayura Exim | Success Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --bg: #f8fafc;
-            --card-bg: rgba(255, 255, 255, 0.8);
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
+            --growth-green: #22c55e;
+            --prosperity-gold: #fbbf24;
+            --energy-orange: #f97316;
+            --clean-white: #ffffff;
+            --soft-sky: #f0f9ff;
+            --text-dark: #0f172a;
         }
 
         body { 
-            background: var(--bg); 
-            font-family: 'Inter', sans-serif; 
-            color: var(--text-main);
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            font-family: 'Outfit', sans-serif; 
+            color: var(--text-dark);
+            min-height: 100vh;
             padding: 40px 20px;
         }
 
-        .dashboard-container {
-            max-width: 900px;
-            margin: auto;
-        }
+        .main-container { max-width: 900px; margin: auto; }
 
-        /* SaaS Glassmorphism Card */
-        .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-            margin-bottom: 24px;
-        }
-
-        .brand-header {
-            text-align: left;
+        /* Feng Shui Branding Header */
+        .branding-hero {
+            text-align: center;
             margin-bottom: 40px;
-            border-left: 5px solid var(--primary);
-            padding-left: 20px;
+            padding: 20px;
         }
 
-        .brand-header h1 { font-weight: 700; letter-spacing: -1px; margin-bottom: 0; }
-        .brand-header p { color: var(--text-muted); font-size: 0.95rem; }
+        .branding-hero h1 {
+            font-weight: 800;
+            font-size: 3.5rem;
+            color: var(--growth-green);
+            text-shadow: 2px 2px 0px var(--prosperity-gold);
+            margin-bottom: 5px;
+        }
 
-        .section-tag {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--primary);
+        .branding-hero p {
+            font-weight: 600;
+            color: var(--energy-orange);
+            letter-spacing: 1px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 16px;
-            display: block;
         }
 
-        .form-label { font-weight: 600; font-size: 0.9rem; color: var(--text-main); }
-        
+        /* Punchy Colorful Cards */
+        .vibrant-card {
+            background: var(--clean-white);
+            border-radius: 30px;
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            border: 2px solid transparent;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .vibrant-card:hover {
+            transform: scale(1.02);
+            border-color: var(--growth-green);
+        }
+
+        .step-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .bg-step-1 { background: #3b82f6; } /* Sky Blue */
+        .bg-step-2 { background: #8b5cf6; } /* Violet */
+        .bg-step-3 { background: #ec4899; } /* Pink */
+        .bg-step-4 { background: #f59e0b; } /* Amber */
+
+        .form-label { font-weight: 700; color: #475569; margin-bottom: 10px; }
+
         .form-control, .form-select {
-            border-radius: 10px;
-            padding: 12px 16px;
-            border: 1px solid var(--border);
-            background: #fff;
-            transition: all 0.2s ease;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 14px 18px;
+            border-radius: 15px;
+            font-weight: 500;
+            transition: 0.3s;
         }
 
         .form-control:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+            background: white;
+            border-color: var(--growth-green);
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15);
         }
 
-        /* Modern Pulse Pills */
+        /* Punchy Pills */
         .pulse-chip { display: none; }
         .pulse-label {
-            padding: 10px 20px;
-            border-radius: 50px;
-            border: 1px solid var(--border);
-            background: #fff;
+            padding: 12px 25px;
+            border-radius: 15px;
+            border: 2px solid #e2e8f0;
+            background: white;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: all 0.2s;
-            margin: 4px;
+            font-weight: 700;
+            transition: 0.3s;
+            margin: 5px;
+            color: #64748b;
         }
 
         .pulse-chip:checked + .pulse-label {
-            background: var(--primary);
-            color: #fff;
-            border-color: var(--primary);
-            transform: translateY(-2px);
+            background: var(--growth-green);
+            color: white;
+            border-color: var(--growth-green);
+            box-shadow: 0 10px 20px rgba(34, 197, 94, 0.2);
         }
 
-        .rate-input-row {
-            background: #f1f5f9;
-            border-radius: 12px;
+        /* High Energy Submit Button */
+        .btn-punchy {
+            background: linear-gradient(45deg, #22c55e, #10b981);
+            color: white;
+            font-weight: 800;
+            font-size: 1.3rem;
             padding: 20px;
-            margin-top: 15px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .btn-primary {
-            background: var(--primary);
+            border-radius: 20px;
             border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-weight: 700;
-            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 15px 30px rgba(34, 197, 94, 0.3);
+            transition: 0.3s;
         }
 
-        .btn-primary:hover {
-            background: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+        .btn-punchy:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.4);
+        }
+
+        .rate-container {
+            background: #f0fdf4;
+            border: 2px dashed #bbf7d0;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-<div class="dashboard-container">
-    <header class="brand-header">
-        <h1>Ayura Exim</h1>
-        <p>Supply Chain Intelligence & Sourcing Hub</p>
-    </header>
+<div class="main-container">
+    <div class="branding-hero">
+        <h1>AYURA EXIM</h1>
+        <p>✨ Growth • Prosperity • Supply Chain ✨</p>
+    </div>
 
     <form id="sourcingForm">
-        <!-- Step 1: Identity -->
-        <div class="glass-card">
-            <span class="section-tag">Step 01</span>
-            <h5 class="mb-4 fw-bold">Mill Identity</h5>
-            <div class="row g-4">
+        <!-- Section 1 -->
+        <div class="vibrant-card">
+            <span class="step-badge bg-step-1">GROWTH PARTNER IDENTITY</span>
+            <div class="row g-3">
                 <div class="col-md-7">
-                    <label class="form-label">Company / Mill Name</label>
-                    <input type="text" name="millName" class="form-control" placeholder="e.g. Mahavir Dal Mill" required>
+                    <label class="form-label">Mill / Company Name</label>
+                    <input type="text" name="millName" class="form-control" placeholder="Enter name..." required>
                 </div>
                 <div class="col-md-5">
-                    <label class="form-label">WhatsApp (Business)</label>
-                    <input type="tel" name="whatsapp" class="form-control" placeholder="+91 00000 00000" required>
+                    <label class="form-label">WhatsApp Contact</label>
+                    <input type="tel" name="whatsapp" class="form-control" placeholder="+91" required>
                 </div>
             </div>
         </div>
 
-        <!-- Step 2: Pulse & Rates -->
-        <div class="glass-card">
-            <span class="section-tag">Step 02</span>
-            <h5 class="mb-4 fw-bold">Market Intelligence</h5>
-            <label class="form-label mb-3">Select Active Commodities</label>
-            <div class="d-flex flex-wrap mb-3">
+        <!-- Section 2 -->
+        <div class="vibrant-card">
+            <span class="step-badge bg-step-2">MARKET INTELLIGENCE</span>
+            <div class="mb-3">
+                <label class="form-label d-block">Select Commodities</label>
                 <input type="checkbox" class="pulse-chip p-opt" id="tur" value="Tur">
                 <label class="pulse-label" for="tur">Tur</label>
-
                 <input type="checkbox" class="pulse-chip p-opt" id="chana" value="Chana">
                 <label class="pulse-label" for="chana">Chana</label>
-
                 <input type="checkbox" class="pulse-chip p-opt" id="moong" value="Moong">
                 <label class="pulse-label" for="moong">Moong</label>
-
                 <input type="checkbox" class="pulse-chip p-opt" id="urad" value="Urad">
                 <label class="pulse-label" for="urad">Urad</label>
-
-                <input type="checkbox" class="pulse-chip p-opt" id="masoor" value="Masoor">
-                <label class="pulse-label" for="masoor">Masoor</label>
             </div>
             <div id="rateInputsContainer"></div>
         </div>
 
-        <!-- Step 3: Global Sourcing -->
-        <div class="glass-card">
-            <span class="section-tag">Step 03</span>
-            <h5 class="mb-4 fw-bold">Raw Material & Logistics</h5>
-            <div class="row g-4">
+        <!-- Section 3 -->
+        <div class="vibrant-card">
+            <span class="step-badge bg-step-3">GLOBAL SOURCING DETAILS</span>
+            <div class="row g-3">
                 <div class="col-md-4">
-                    <label class="form-label">Quality Grade</label>
-                    <select name="quality" class="form-select">
-                        <option value="A">Grade A (Premium)</option>
-                        <option value="B">Grade B (Standard)</option>
-                        <option value="C">Grade C (Industrial)</option>
-                    </select>
+                    <label class="form-label">Source Country</label>
+                    <input type="text" name="country" class="form-control">
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">Source Origin</label>
-                    <input type="text" name="country" class="form-control" placeholder="Country">
+                    <label class="form-label">State / Region</label>
+                    <input type="text" name="state" class="form-control">
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">Procurement (MT)</label>
-                    <input type="number" name="monthlyReq" class="form-control" placeholder="Qty">
+                    <label class="form-label">Monthly Procurement (MT)</label>
+                    <input type="number" name="monthlyReq" class="form-control">
                 </div>
-                <div class="col-md-12">
-                    <label class="form-label">Supplier Contact / Name</label>
-                    <input type="text" name="supplierName" class="form-control" placeholder="Name if shared">
+                <div class="col-12">
+                    <label class="form-label">Supplier Name</label>
+                    <input type="text" name="supplierName" class="form-control" placeholder="If shared...">
                 </div>
             </div>
         </div>
 
-        <!-- Step 4: Business Potential -->
-        <div class="glass-card">
-            <span class="section-tag">Step 04</span>
-            <h5 class="mb-4 fw-bold">Commercial Opportunity</h5>
+        <!-- Section 4 -->
+        <div class="vibrant-card">
+            <span class="step-badge bg-step-4">COMMERCIAL SUCCESS</span>
             <div class="row g-3">
-                <div class="col-md-6 border-end">
+                <div class="col-md-6">
                     <div class="form-check form-switch mb-3">
                         <input class="form-check-input" type="checkbox" name="buyFromUs" id="bp1">
-                        <label class="form-check-label" for="bp1">Purchase raw material from us?</label>
-                    </div>
-                    <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" name="exportSupply" id="bp2">
-                        <label class="form-check-label" for="bp2">Supply for Ayura Exports?</label>
+                        <label class="form-label ms-2" for="bp1">Buy Raw Material from us?</label>
                     </div>
                 </div>
-                <div class="col-md-6 ps-md-4">
-                    <label class="form-label">Monthly Processing Cap (MT)</label>
-                    <input type="number" name="monthlyCap" class="form-control" placeholder="Max Capacity">
-                </div>
-            </div>
-        </div>
-
-        <!-- Step 5: Follow-up -->
-        <div class="glass-card">
-            <span class="section-tag">Final Step</span>
-            <h5 class="mb-4 fw-bold">Action Plan</h5>
-            <div class="row g-4 mb-4">
                 <div class="col-md-6">
-                    <label class="form-label">Lead Status</label>
+                    <label class="form-label">Processing Capacity (MT)</label>
+                    <input type="number" name="monthlyCap" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Current Status</label>
                     <select name="status" class="form-select">
-                        <option>Highly Interested</option>
-                        <option>Awaiting Sample</option>
-                        <option>Follow-up Later</option>
-                        <option>Closed - Not Interested</option>
+                        <option>Strong Interest</option>
+                        <option>Awaiting Response</option>
+                        <option>Closed</option>
                     </select>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Follow-up Date</label>
                     <input type="date" name="followUpDate" class="form-control">
                 </div>
+                <div class="col-12">
+                    <label class="form-label">Remarks</label>
+                    <textarea name="remarks" class="form-control" rows="3"></textarea>
+                </div>
             </div>
-            <label class="form-label">Strategic Remarks</label>
-            <textarea name="remarks" class="form-control" rows="3" placeholder="Add specific negotiation details..."></textarea>
         </div>
 
-        <button type="submit" id="submitBtn" class="btn btn-primary btn-lg w-100 shadow">SUBMIT DATA TO CLOUD</button>
+        <button type="submit" id="submitBtn" class="btn-punchy">🚀 SYNC DATA TO CLOUD</button>
     </form>
 </div>
 
@@ -257,18 +255,13 @@
             const container = document.getElementById('rateInputsContainer');
             container.innerHTML = "";
             const selected = document.querySelectorAll('.p-opt:checked');
-            
             if(selected.length > 0) {
-                const row = document.createElement('div');
-                row.className = "rate-input-row row g-3";
+                const div = document.createElement('div');
+                div.className = "rate-container row g-3";
                 selected.forEach(checked => {
-                    row.innerHTML += `
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold text-primary small">${checked.value} Rate (₹/Qtl)</label>
-                            <input type="number" class="form-control r-val" data-p="${checked.value}" placeholder="0.00">
-                        </div>`;
+                    div.innerHTML += `<div class="col-md-6"><label class="form-label fw-bold text-success">${checked.value} Rate (₹/Qtl)</label><input type="number" class="form-control r-val" data-p="${checked.value}"></div>`;
                 });
-                container.appendChild(row);
+                container.appendChild(div);
             }
         });
     });
@@ -276,32 +269,23 @@
     document.getElementById('sourcingForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Syncing to Dashboard...';
+        btn.disabled = true; btn.innerText = "SAVING PROSPERITY...";
 
         const formData = new FormData(this);
         const payload = Object.fromEntries(formData.entries());
-
         const rates = {};
         document.querySelectorAll('.r-val').forEach(i => rates[i.dataset.p] = i.value);
         payload.rates = rates;
         payload.pulses = Object.keys(rates).join(", ");
-
         payload.buyFromUs = document.getElementById('bp1').checked;
-        payload.exportSupply = document.getElementById('bp2').checked;
 
-        fetch(APP_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify(payload)
-        }).then(() => {
-            alert("✅ Successfully Syncronized!");
+        fetch(APP_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
+        .then(() => {
+            alert("✅ Data successfully saved!");
             this.reset();
             document.getElementById('rateInputsContainer').innerHTML = "";
-        }).catch(err => alert("Error: " + err))
-        .finally(() => {
-            btn.disabled = false;
-            btn.innerHTML = "SUBMIT DATA TO CLOUD";
+        }).finally(() => {
+            btn.disabled = false; btn.innerText = "🚀 SYNC DATA TO CLOUD";
         });
     });
 </script>
