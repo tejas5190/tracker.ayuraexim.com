@@ -9,26 +9,24 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
-            --growth-green: #22c55e;
+            --growth-green: #15803d;
             --prosperity-gold: #fbbf24;
             --energy-orange: #f97316;
-            --clean-white: rgba(255, 255, 255, 0.9);
-            --text-dark: #1e293b;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --text-dark: #0f172a;
         }
 
         body { 
-            background: linear-gradient(rgba(240, 249, 255, 0.8), rgba(224, 242, 254, 0.8)), 
-                        url('https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&q=80&w=2000');
-            background-attachment: fixed;
+            background: url('https://static.vecteezy.com/system/resources/previews/029/300/314/large_2x/tractor-spraying-pesticides-on-soybean-field-with-sprayer-at-spring-free-photo.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Outfit', sans-serif; 
             color: var(--text-dark);
             min-height: 100vh;
-            padding: 40px 20px;
+            padding: 20px;
             overflow-x: hidden;
         }
 
-        /* Animated Floating Pulses Background */
+        /* Fun Floating Icons */
         .bg-animation {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -38,132 +36,144 @@
 
         .floating-item {
             position: absolute;
-            font-size: 2rem;
-            opacity: 0.1;
-            animation: float 20s linear infinite;
+            font-size: 2.5rem;
+            opacity: 0.2;
+            animation: floatUp 15s linear infinite;
         }
 
-        @keyframes float {
-            0% { transform: translateY(110vh) rotate(0deg); }
-            100% { transform: translateY(-10vh) rotate(360deg); }
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
-        .main-container { max-width: 900px; margin: auto; position: relative; }
+        .main-container { max-width: 900px; margin: auto; padding-top: 20px; }
 
         .branding-hero {
             text-align: center;
-            margin-bottom: 40px;
-            animation: bounceIn 1s ease;
+            margin-bottom: 30px;
+            animation: bounceIn 1.2s ease;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            padding: 20px;
+            border-radius: 30px;
+            border: 2px solid rgba(255,255,255,0.3);
         }
 
         .branding-hero h1 {
             font-weight: 800;
-            font-size: 4rem;
-            color: var(--growth-green);
-            text-shadow: 3px 3px 0px var(--prosperity-gold);
+            font-size: 4.5rem;
+            color: #fff;
+            text-shadow: 4px 4px 0px var(--growth-green), 6px 6px 15px rgba(0,0,0,0.4);
             margin-bottom: 5px;
         }
 
         .branding-hero p {
-            font-weight: 700;
-            color: var(--energy-orange);
-            background: white;
+            font-weight: 800;
+            color: #fff;
+            background: var(--energy-orange);
             display: inline-block;
-            padding: 5px 20px;
+            padding: 8px 25px;
             border-radius: 50px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
         }
 
+        /* Glass Cards - Lively & Punchy */
         .vibrant-card {
-            background: var(--clean-white);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 35px;
             padding: 35px;
-            margin-bottom: 25px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-            border: 3px solid transparent;
-            transition: 0.3s;
+            margin-bottom: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 4px solid transparent;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .vibrant-card:hover {
             border-color: var(--prosperity-gold);
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.01);
         }
 
-        /* Punchy UI Elements */
         .step-badge {
             display: inline-block;
-            padding: 8px 20px;
+            padding: 10px 25px;
             border-radius: 50px;
             font-weight: 800;
             color: white;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .bg-blue { background: #3b82f6; }
-        .bg-purple { background: #a855f7; }
-        .bg-pink { background: #ec4899; }
-        .bg-amber { background: #f59e0b; }
+        .bg-blue { background: linear-gradient(45deg, #2563eb, #3b82f6); }
+        .bg-purple { background: linear-gradient(45deg, #7c3aed, #a855f7); }
+        .bg-pink { background: linear-gradient(45deg, #db2777, #ec4899); }
+        .bg-amber { background: linear-gradient(45deg, #d97706, #f59e0b); }
+
+        .form-label { font-size: 1.1rem; }
 
         .form-control, .form-select {
-            border: 2px solid #e2e8f0;
-            border-radius: 15px;
-            padding: 14px;
+            border: 2px solid #cbd5e1;
+            border-radius: 18px;
+            padding: 15px;
+            font-weight: 600;
             transition: 0.3s;
         }
 
         .form-control:focus {
             border-color: var(--growth-green);
-            box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.2);
+            box-shadow: 0 0 0 6px rgba(21, 128, 61, 0.2);
         }
 
-        /* Submit Button with Pulse Animation */
+        /* Submit Button - Extreme Energy */
         .btn-success-sync {
-            background: linear-gradient(45deg, #22c55e, #10b981);
+            background: linear-gradient(45deg, #15803d, #22c55e);
             color: white;
             font-weight: 800;
-            font-size: 1.5rem;
-            padding: 22px;
-            border-radius: 25px;
+            font-size: 1.8rem;
+            padding: 25px;
+            border-radius: 30px;
             border: none;
             width: 100%;
-            margin-top: 20px;
-            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
-            transition: 0.3s;
-            animation: pulse-border 2s infinite;
+            margin-top: 10px;
+            box-shadow: 0 20px 40px rgba(21, 128, 61, 0.5);
+            transition: 0.4s;
+            animation: pulse-glow 2s infinite;
         }
 
-        @keyframes pulse-border {
-            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(34, 197, 94, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        @keyframes pulse-glow {
+            0% { transform: scale(1); box-shadow: 0 20px 40px rgba(21, 128, 61, 0.5); }
+            50% { transform: scale(1.02); box-shadow: 0 20px 60px rgba(21, 128, 61, 0.8); }
+            100% { transform: scale(1); box-shadow: 0 20px 40px rgba(21, 128, 61, 0.5); }
         }
 
-        @keyframes bounceIn {
-            0% { opacity: 0; transform: scale(0.3); }
-            50% { opacity: 1; transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); }
-        }
-
-        /* Pulse Pills */
         .p-label {
-            padding: 12px 25px;
-            border-radius: 15px;
-            border: 2px solid #cbd5e1;
-            margin: 5px;
+            padding: 15px 30px;
+            border-radius: 20px;
+            border: 3px solid #cbd5e1;
+            margin: 8px;
             display: inline-block;
             cursor: pointer;
-            font-weight: 700;
+            font-weight: 800;
+            background: #fff;
             transition: 0.3s;
         }
 
         .p-check:checked + .p-label {
             background: var(--growth-green);
             color: white;
-            border-color: var(--growth-green);
-            transform: scale(1.1);
+            border-color: var(--prosperity-gold);
+            transform: translateY(-5px);
+        }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3) translateY(-100px); }
+            70% { transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
     </style>
 </head>
@@ -174,29 +184,29 @@
 <div class="main-container">
     <div class="branding-hero">
         <h1>AYURA EXIM</h1>
-        <p>🌱 PROSPERITY & GROWTH PORTAL 🌱</p>
+        <p>🚜 HARVESTING SUCCESS & PROSPERITY 🚜</p>
     </div>
 
     <form id="sourcingForm">
-        <!-- Mill Identity -->
+        <!-- 01. Identity -->
         <div class="vibrant-card">
             <span class="step-badge bg-blue">01. MILL IDENTITY</span>
-            <div class="row g-3">
+            <div class="row g-4">
                 <div class="col-md-7">
                     <label class="form-label fw-bold">Dal Mill Name</label>
-                    <input type="text" name="millName" class="form-control" placeholder="Company name..." required>
+                    <input type="text" name="millName" class="form-control" placeholder="Company Name" required>
                 </div>
                 <div class="col-md-5">
-                    <label class="form-label fw-bold">WhatsApp Contact</label>
+                    <label class="form-label fw-bold">WhatsApp Number</label>
                     <input type="tel" name="whatsapp" class="form-control" placeholder="+91" required>
                 </div>
             </div>
         </div>
 
-        <!-- Market Intel -->
+        <!-- 02. Market Intel -->
         <div class="vibrant-card">
             <span class="step-badge bg-purple">02. MARKET INTELLIGENCE</span>
-            <div class="mb-3 text-center">
+            <div class="text-center">
                 <input type="checkbox" class="p-check d-none p-opt" id="tur" value="Tur">
                 <label class="p-label" for="tur">Tur</label>
                 <input type="checkbox" class="p-check d-none p-opt" id="chana" value="Chana">
@@ -209,35 +219,35 @@
             <div id="rateInputsContainer"></div>
         </div>
 
-        <!-- Logistics -->
+        <!-- 03. Logistics -->
         <div class="vibrant-card">
             <span class="step-badge bg-pink">03. LOGISTICS & CAPACITY</span>
-            <div class="row g-3">
+            <div class="row g-4">
                 <div class="col-md-4">
                     <label class="form-label fw-bold">Origin Country</label>
-                    <input type="text" name="country" class="form-control" placeholder="India">
+                    <input type="text" name="country" class="form-control" placeholder="e.g. India">
                 </div>
                 <div class="col-md-4">
                     <label class="form-label fw-bold">Procurement (MT)</label>
-                    <input type="number" name="monthlyReq" class="form-control">
+                    <input type="number" name="monthlyReq" class="form-control" placeholder="Qty">
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label fw-bold">Processing Cap (MT)</label>
-                    <input type="number" name="monthlyCap" class="form-control">
+                    <label class="form-label fw-bold">Monthly Cap (MT)</label>
+                    <input type="number" name="monthlyCap" class="form-control" placeholder="Capacity">
                 </div>
             </div>
         </div>
 
-        <!-- Success Status -->
+        <!-- 04. Status -->
         <div class="vibrant-card">
-            <span class="step-badge bg-amber">04. ACTION & SUCCESS</span>
-            <div class="row g-3">
+            <span class="step-badge bg-amber">04. ACTION STATUS</span>
+            <div class="row g-4">
                 <div class="col-md-6">
                     <label class="form-label fw-bold">Current Status</label>
                     <select name="status" class="form-select">
-                        <option>Strong Lead</option>
-                        <option>Waiting</option>
-                        <option>Closed</option>
+                        <option>🔥 High Potential</option>
+                        <option>⏳ In Discussion</option>
+                        <option>✅ Closed / Deal</option>
                     </select>
                 </div>
                 <div class="col-md-6">
@@ -245,31 +255,31 @@
                     <input type="date" name="followUpDate" class="form-control">
                 </div>
                 <div class="col-12">
-                    <textarea name="remarks" class="form-control" rows="3" placeholder="Strategic notes..."></textarea>
+                    <textarea name="remarks" class="form-control" rows="3" placeholder="Additional notes..."></textarea>
                 </div>
             </div>
         </div>
 
-        <button type="submit" id="submitBtn" class="btn-success-sync">🚀 SYNC TO CLOUD</button>
+        <button type="submit" id="submitBtn" class="btn-success-sync">🚀 SYNC PROSPERITY</button>
     </form>
 </div>
 
 <script>
     const URL = "https://script.google.com/macros/s/AKfycbzg3lDLkTtQp8dcRYLmdohne_EFxU1ft1ofM-_wmt_Tf4_KLLsd88LITZFE4r9qwcc4/exec";
 
-    // Create background floating icons
-    const icons = ['🌾', '💰', '🏗️', '🌱', '📈'];
+    // Dynamic background floating
+    const icons = ['🌾', '🚜', '💰', '🏗️', '🌱', '🚚'];
     const bg = document.getElementById('bg-items');
     for(let i=0; i<15; i++) {
         let span = document.createElement('span');
         span.className = 'floating-item';
         span.innerText = icons[Math.floor(Math.random()*icons.length)];
         span.style.left = Math.random()*100 + '%';
-        span.style.animationDelay = Math.random()*20 + 's';
+        span.style.animationDelay = Math.random()*15 + 's';
         bg.appendChild(span);
     }
 
-    // Dynamic Rates
+    // Rate inputs
     document.querySelectorAll('.p-opt').forEach(cb => {
         cb.addEventListener('change', () => {
             const container = document.getElementById('rateInputsContainer');
@@ -277,20 +287,21 @@
             const selected = document.querySelectorAll('.p-opt:checked');
             if(selected.length > 0) {
                 const div = document.createElement('div');
-                div.className = "p-3 bg-light rounded-4 row g-3 mt-2 border border-2 border-primary";
+                div.className = "p-4 rounded-4 row g-3 mt-3 shadow-inner";
+                div.style.background = "rgba(21, 128, 61, 0.1)";
                 selected.forEach(checked => {
-                    div.innerHTML += `<div class="col-md-6"><label class="form-label fw-bold">${checked.value} Rate (₹/Qtl)</label><input type="number" class="form-control r-val" data-p="${checked.value}"></div>`;
+                    div.innerHTML += `<div class="col-md-6"><label class="form-label fw-bold text-success">${checked.value} Rate (₹/Qtl)</label><input type="number" class="form-control r-val" data-p="${checked.value}"></div>`;
                 });
                 container.appendChild(div);
             }
         });
     });
 
-    // Submit Logic
+    // Form logic
     document.getElementById('sourcingForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
-        btn.disabled = true; btn.innerText = "UPDATING SHEETS...";
+        btn.disabled = true; btn.innerText = "🚀 UPLOADING...";
 
         const fd = new FormData(this);
         const payload = Object.fromEntries(fd.entries());
@@ -301,18 +312,17 @@
 
         fetch(URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
         .then(() => {
-            // CONFETTI CELEBRATION!
             confetti({
-                particleCount: 150,
-                spread: 70,
+                particleCount: 200,
+                spread: 90,
                 origin: { y: 0.6 },
-                colors: ['#22c55e', '#fbbf24', '#f97316']
+                colors: ['#15803d', '#fbbf24', '#f97316', '#ffffff']
             });
-            alert("Entry Saved! Prosperity Guaranteed.");
+            alert("Entry Saved! Data is now in your Google Sheet.");
             this.reset();
             document.getElementById('rateInputsContainer').innerHTML = "";
         }).finally(() => {
-            btn.disabled = false; btn.innerText = "🚀 SYNC TO CLOUD";
+            btn.disabled = false; btn.innerText = "🚀 SYNC PROSPERITY";
         });
     });
 </script>
