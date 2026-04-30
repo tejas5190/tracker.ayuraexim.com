@@ -3,253 +3,273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ayura Exim | Success Portal</title>
+    <title>Ayura Exim | Prosperity Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             --growth-green: #22c55e;
             --prosperity-gold: #fbbf24;
             --energy-orange: #f97316;
-            --clean-white: #ffffff;
-            --soft-sky: #f0f9ff;
-            --text-dark: #0f172a;
+            --clean-white: rgba(255, 255, 255, 0.9);
+            --text-dark: #1e293b;
         }
 
         body { 
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            background: linear-gradient(rgba(240, 249, 255, 0.8), rgba(224, 242, 254, 0.8)), 
+                        url('https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&q=80&w=2000');
+            background-attachment: fixed;
+            background-size: cover;
             font-family: 'Outfit', sans-serif; 
             color: var(--text-dark);
             min-height: 100vh;
             padding: 40px 20px;
+            overflow-x: hidden;
         }
 
-        .main-container { max-width: 900px; margin: auto; }
+        /* Animated Floating Pulses Background */
+        .bg-animation {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
 
-        /* Feng Shui Branding Header */
+        .floating-item {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(110vh) rotate(0deg); }
+            100% { transform: translateY(-10vh) rotate(360deg); }
+        }
+
+        .main-container { max-width: 900px; margin: auto; position: relative; }
+
         .branding-hero {
             text-align: center;
             margin-bottom: 40px;
-            padding: 20px;
+            animation: bounceIn 1s ease;
         }
 
         .branding-hero h1 {
             font-weight: 800;
-            font-size: 3.5rem;
+            font-size: 4rem;
             color: var(--growth-green);
-            text-shadow: 2px 2px 0px var(--prosperity-gold);
+            text-shadow: 3px 3px 0px var(--prosperity-gold);
             margin-bottom: 5px;
         }
 
         .branding-hero p {
-            font-weight: 600;
+            font-weight: 700;
             color: var(--energy-orange);
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            background: white;
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
-        /* Punchy Colorful Cards */
         .vibrant-card {
             background: var(--clean-white);
+            backdrop-filter: blur(10px);
             border-radius: 30px;
             padding: 35px;
             margin-bottom: 25px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
-            border: 2px solid transparent;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border: 3px solid transparent;
+            transition: 0.3s;
         }
 
         .vibrant-card:hover {
-            transform: scale(1.02);
-            border-color: var(--growth-green);
+            border-color: var(--prosperity-gold);
+            transform: translateY(-5px);
         }
 
+        /* Punchy UI Elements */
         .step-badge {
             display: inline-block;
-            padding: 6px 16px;
+            padding: 8px 20px;
             border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.75rem;
-            margin-bottom: 15px;
+            font-weight: 800;
             color: white;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .bg-step-1 { background: #3b82f6; } /* Sky Blue */
-        .bg-step-2 { background: #8b5cf6; } /* Violet */
-        .bg-step-3 { background: #ec4899; } /* Pink */
-        .bg-step-4 { background: #f59e0b; } /* Amber */
-
-        .form-label { font-weight: 700; color: #475569; margin-bottom: 10px; }
+        .bg-blue { background: #3b82f6; }
+        .bg-purple { background: #a855f7; }
+        .bg-pink { background: #ec4899; }
+        .bg-amber { background: #f59e0b; }
 
         .form-control, .form-select {
-            background: #f8fafc;
             border: 2px solid #e2e8f0;
-            padding: 14px 18px;
             border-radius: 15px;
-            font-weight: 500;
+            padding: 14px;
             transition: 0.3s;
         }
 
         .form-control:focus {
-            background: white;
             border-color: var(--growth-green);
-            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15);
+            box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.2);
         }
 
-        /* Punchy Pills */
-        .pulse-chip { display: none; }
-        .pulse-label {
-            padding: 12px 25px;
-            border-radius: 15px;
-            border: 2px solid #e2e8f0;
-            background: white;
-            cursor: pointer;
-            font-weight: 700;
-            transition: 0.3s;
-            margin: 5px;
-            color: #64748b;
-        }
-
-        .pulse-chip:checked + .pulse-label {
-            background: var(--growth-green);
-            color: white;
-            border-color: var(--growth-green);
-            box-shadow: 0 10px 20px rgba(34, 197, 94, 0.2);
-        }
-
-        /* High Energy Submit Button */
-        .btn-punchy {
+        /* Submit Button with Pulse Animation */
+        .btn-success-sync {
             background: linear-gradient(45deg, #22c55e, #10b981);
             color: white;
             font-weight: 800;
-            font-size: 1.3rem;
-            padding: 20px;
-            border-radius: 20px;
+            font-size: 1.5rem;
+            padding: 22px;
+            border-radius: 25px;
             border: none;
             width: 100%;
             margin-top: 20px;
-            box-shadow: 0 15px 30px rgba(34, 197, 94, 0.3);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+            transition: 0.3s;
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        /* Pulse Pills */
+        .p-label {
+            padding: 12px 25px;
+            border-radius: 15px;
+            border: 2px solid #cbd5e1;
+            margin: 5px;
+            display: inline-block;
+            cursor: pointer;
+            font-weight: 700;
             transition: 0.3s;
         }
 
-        .btn-punchy:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.4);
-        }
-
-        .rate-container {
-            background: #f0fdf4;
-            border: 2px dashed #bbf7d0;
-            border-radius: 20px;
-            padding: 20px;
-            margin-top: 20px;
+        .p-check:checked + .p-label {
+            background: var(--growth-green);
+            color: white;
+            border-color: var(--growth-green);
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
 
+<div class="bg-animation" id="bg-items"></div>
+
 <div class="main-container">
     <div class="branding-hero">
         <h1>AYURA EXIM</h1>
-        <p>✨ Growth • Prosperity • Supply Chain ✨</p>
+        <p>🌱 PROSPERITY & GROWTH PORTAL 🌱</p>
     </div>
 
     <form id="sourcingForm">
-        <!-- Section 1 -->
+        <!-- Mill Identity -->
         <div class="vibrant-card">
-            <span class="step-badge bg-step-1">GROWTH PARTNER IDENTITY</span>
+            <span class="step-badge bg-blue">01. MILL IDENTITY</span>
             <div class="row g-3">
                 <div class="col-md-7">
-                    <label class="form-label">Mill / Company Name</label>
-                    <input type="text" name="millName" class="form-control" placeholder="Enter name..." required>
+                    <label class="form-label fw-bold">Dal Mill Name</label>
+                    <input type="text" name="millName" class="form-control" placeholder="Company name..." required>
                 </div>
                 <div class="col-md-5">
-                    <label class="form-label">WhatsApp Contact</label>
+                    <label class="form-label fw-bold">WhatsApp Contact</label>
                     <input type="tel" name="whatsapp" class="form-control" placeholder="+91" required>
                 </div>
             </div>
         </div>
 
-        <!-- Section 2 -->
+        <!-- Market Intel -->
         <div class="vibrant-card">
-            <span class="step-badge bg-step-2">MARKET INTELLIGENCE</span>
-            <div class="mb-3">
-                <label class="form-label d-block">Select Commodities</label>
-                <input type="checkbox" class="pulse-chip p-opt" id="tur" value="Tur">
-                <label class="pulse-label" for="tur">Tur</label>
-                <input type="checkbox" class="pulse-chip p-opt" id="chana" value="Chana">
-                <label class="pulse-label" for="chana">Chana</label>
-                <input type="checkbox" class="pulse-chip p-opt" id="moong" value="Moong">
-                <label class="pulse-label" for="moong">Moong</label>
-                <input type="checkbox" class="pulse-chip p-opt" id="urad" value="Urad">
-                <label class="pulse-label" for="urad">Urad</label>
+            <span class="step-badge bg-purple">02. MARKET INTELLIGENCE</span>
+            <div class="mb-3 text-center">
+                <input type="checkbox" class="p-check d-none p-opt" id="tur" value="Tur">
+                <label class="p-label" for="tur">Tur</label>
+                <input type="checkbox" class="p-check d-none p-opt" id="chana" value="Chana">
+                <label class="p-label" for="chana">Chana</label>
+                <input type="checkbox" class="p-check d-none p-opt" id="moong" value="Moong">
+                <label class="p-label" for="moong">Moong</label>
+                <input type="checkbox" class="p-check d-none p-opt" id="urad" value="Urad">
+                <label class="p-label" for="urad">Urad</label>
             </div>
             <div id="rateInputsContainer"></div>
         </div>
 
-        <!-- Section 3 -->
+        <!-- Logistics -->
         <div class="vibrant-card">
-            <span class="step-badge bg-step-3">GLOBAL SOURCING DETAILS</span>
+            <span class="step-badge bg-pink">03. LOGISTICS & CAPACITY</span>
             <div class="row g-3">
                 <div class="col-md-4">
-                    <label class="form-label">Source Country</label>
-                    <input type="text" name="country" class="form-control">
+                    <label class="form-label fw-bold">Origin Country</label>
+                    <input type="text" name="country" class="form-control" placeholder="India">
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">State / Region</label>
-                    <input type="text" name="state" class="form-control">
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Monthly Procurement (MT)</label>
+                    <label class="form-label fw-bold">Procurement (MT)</label>
                     <input type="number" name="monthlyReq" class="form-control">
                 </div>
-                <div class="col-12">
-                    <label class="form-label">Supplier Name</label>
-                    <input type="text" name="supplierName" class="form-control" placeholder="If shared...">
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Processing Cap (MT)</label>
+                    <input type="number" name="monthlyCap" class="form-control">
                 </div>
             </div>
         </div>
 
-        <!-- Section 4 -->
+        <!-- Success Status -->
         <div class="vibrant-card">
-            <span class="step-badge bg-step-4">COMMERCIAL SUCCESS</span>
+            <span class="step-badge bg-amber">04. ACTION & SUCCESS</span>
             <div class="row g-3">
                 <div class="col-md-6">
-                    <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" name="buyFromUs" id="bp1">
-                        <label class="form-label ms-2" for="bp1">Buy Raw Material from us?</label>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Processing Capacity (MT)</label>
-                    <input type="number" name="monthlyCap" class="form-control">
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Current Status</label>
+                    <label class="form-label fw-bold">Current Status</label>
                     <select name="status" class="form-select">
-                        <option>Strong Interest</option>
-                        <option>Awaiting Response</option>
+                        <option>Strong Lead</option>
+                        <option>Waiting</option>
                         <option>Closed</option>
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Follow-up Date</label>
+                    <label class="form-label fw-bold">Follow-up Date</label>
                     <input type="date" name="followUpDate" class="form-control">
                 </div>
                 <div class="col-12">
-                    <label class="form-label">Remarks</label>
-                    <textarea name="remarks" class="form-control" rows="3"></textarea>
+                    <textarea name="remarks" class="form-control" rows="3" placeholder="Strategic notes..."></textarea>
                 </div>
             </div>
         </div>
 
-        <button type="submit" id="submitBtn" class="btn-punchy">🚀 SYNC DATA TO CLOUD</button>
+        <button type="submit" id="submitBtn" class="btn-success-sync">🚀 SYNC TO CLOUD</button>
     </form>
 </div>
 
 <script>
-    const APP_URL = "https://script.google.com/macros/s/AKfycbzg3lDLkTtQp8dcRYLmdohne_EFxU1ft1ofM-_wmt_Tf4_KLLsd88LITZFE4r9qwcc4/exec";
+    const URL = "https://script.google.com/macros/s/AKfycbzg3lDLkTtQp8dcRYLmdohne_EFxU1ft1ofM-_wmt_Tf4_KLLsd88LITZFE4r9qwcc4/exec";
 
+    // Create background floating icons
+    const icons = ['🌾', '💰', '🏗️', '🌱', '📈'];
+    const bg = document.getElementById('bg-items');
+    for(let i=0; i<15; i++) {
+        let span = document.createElement('span');
+        span.className = 'floating-item';
+        span.innerText = icons[Math.floor(Math.random()*icons.length)];
+        span.style.left = Math.random()*100 + '%';
+        span.style.animationDelay = Math.random()*20 + 's';
+        bg.appendChild(span);
+    }
+
+    // Dynamic Rates
     document.querySelectorAll('.p-opt').forEach(cb => {
         cb.addEventListener('change', () => {
             const container = document.getElementById('rateInputsContainer');
@@ -257,35 +277,42 @@
             const selected = document.querySelectorAll('.p-opt:checked');
             if(selected.length > 0) {
                 const div = document.createElement('div');
-                div.className = "rate-container row g-3";
+                div.className = "p-3 bg-light rounded-4 row g-3 mt-2 border border-2 border-primary";
                 selected.forEach(checked => {
-                    div.innerHTML += `<div class="col-md-6"><label class="form-label fw-bold text-success">${checked.value} Rate (₹/Qtl)</label><input type="number" class="form-control r-val" data-p="${checked.value}"></div>`;
+                    div.innerHTML += `<div class="col-md-6"><label class="form-label fw-bold">${checked.value} Rate (₹/Qtl)</label><input type="number" class="form-control r-val" data-p="${checked.value}"></div>`;
                 });
                 container.appendChild(div);
             }
         });
     });
 
+    // Submit Logic
     document.getElementById('sourcingForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
-        btn.disabled = true; btn.innerText = "SAVING PROSPERITY...";
+        btn.disabled = true; btn.innerText = "UPDATING SHEETS...";
 
-        const formData = new FormData(this);
-        const payload = Object.fromEntries(formData.entries());
+        const fd = new FormData(this);
+        const payload = Object.fromEntries(fd.entries());
         const rates = {};
         document.querySelectorAll('.r-val').forEach(i => rates[i.dataset.p] = i.value);
         payload.rates = rates;
         payload.pulses = Object.keys(rates).join(", ");
-        payload.buyFromUs = document.getElementById('bp1').checked;
 
-        fetch(APP_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
+        fetch(URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
         .then(() => {
-            alert("✅ Data successfully saved!");
+            // CONFETTI CELEBRATION!
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#22c55e', '#fbbf24', '#f97316']
+            });
+            alert("Entry Saved! Prosperity Guaranteed.");
             this.reset();
             document.getElementById('rateInputsContainer').innerHTML = "";
         }).finally(() => {
-            btn.disabled = false; btn.innerText = "🚀 SYNC DATA TO CLOUD";
+            btn.disabled = false; btn.innerText = "🚀 SYNC TO CLOUD";
         });
     });
 </script>
