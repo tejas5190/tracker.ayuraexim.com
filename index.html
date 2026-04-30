@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayura Exim - Sourcing Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #f4f7f9; padding: 20px; font-family: 'Segoe UI', sans-serif; }
+        .tracker-card { max-width: 700px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .header { background: #1a73e8; color: white; padding: 20px; border-radius: 15px 15px 0 0; margin: -30px -30px 30px -30px; text-align: center; }
+        .section-title { font-weight: bold; color: #1a73e8; border-bottom: 2px solid #e8f0fe; padding-bottom: 5px; margin: 25px 0 15px 0; text-transform: uppercase; letter-spacing: 1px; }
+        .rate-box { background: #f8f9fa; padding: 15px; border-radius: 10px; border: 1px solid #dee2e6; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="tracker-card">
+    <div class="header">
+        <h2>🌾 Ayura Exim</h2>
+        <p class="mb-0">Dal Mill Sourcing Data Entry</p>
+    </div>
+
+    <form id="sourcingForm">
+        <div class="section-title">1. Mill Information</div>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Mill Name</label>
+                <input type="text" name="millName" class="form-control" placeholder="Enter mill name" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">WhatsApp Number</label>
+                <input type="tel" name="whatsapp" class="form-control" placeholder="Enter number" required>
+            </div>
+        </div>
+
+        <div class="section-title">2. Business Type</div>
+        <div class="mb-3">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="localDal" id="ld">
+                <label class="form-check-label" for="ld">Local Dal</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="importedDal" id="id">
+                <label class="form-check-label" for="id">Imported Dal</label>
+            </div>
+        </div>
+
+        <div class="section-title">3. Pulses & Live Rates</div>
+        <div class="mb-2"><small class="text-muted">Select pulses to enter current rates:</small></div>
+        <div class="btn-group-toggle mb-3">
+            <input type="checkbox" class="btn-check p-opt" id="tur" value="Tur"> <label class="btn btn-outline-primary m-1" for="tur">Tur</label>
+            <input type="checkbox" class="btn-check p-opt" id="chana" value="Chana"> <label class="btn btn-outline-primary m-1" for="chana">Chana</label>
+            <input type="checkbox" class="btn-check p-opt" id="moong" value="Moong"> <label class="btn btn-outline-primary m-1" for="moong">Moong</label>
+            <input type="checkbox" class="btn-check p-opt" id="urad" value="Urad"> <label class="btn btn-outline-primary m-1" for="urad">Urad</label>
+        </div>
+
+        <div id="rateInputsContainer"></div>
+
+        <div class="section-title">4. Status & Remarks</div>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Current Status</label>
+                <select name="status" class="form-select">
+                    <option>Interested</option>
+                    <option>Not Now</option>
+                    <option>Closed</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Follow-up Date</label>
+                <input type="date" name="followUpDate" class="form-control">
+            </div>
+            <div class="col-12">
+                <textarea name="remarks" class="form-control" rows="3" placeholder="Additional notes..."></textarea>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" id="submitBtn" class="btn btn-primary btn-lg w-100 fw-bold">🚀 SUBMIT TO GOOGLE SHEET</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const APP_URL = "https://script.google.com/macros/s/AKfycbzg3lDLkTtQp8dcRYLmdohne_EFxU1ft1ofM-_wmt_Tf4_KLLsd88LITZFE4r9qwcc4/exec";
+
+    // Handle Dynamic Rate Fields
+    document.querySelectorAll('.p-opt').forEach(cb => {
+        cb.addEventListener('change', () => {
+            const container = document.getElementById('rateInputsContainer');
+            container.innerHTML = "";
+            document.querySelectorAll('.p-opt:checked').forEach(checked => {
+                const name = checked.value;
+                container.innerHTML += `
+                    <div class="rate-box">
+                        <label class="form-label">${name} Rate (₹/Qtl)</label>
+                        <input type="number" class="form-control r-val" data-p="${name}" placeholder="Current rate for ${name}">
+                    </div>`;
+            });
+        });
+    });
+
+    // Form Submission
+    document.getElementById('sourcingForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.innerHTML = "Processing...";
+
+        const formData = new FormData(this);
+        const payload = Object.fromEntries(formData.entries());
+
+        // Process Checkboxes
+        payload.localDal = document.getElementById('ld').checked;
+        payload.importedDal = document.getElementById('id').checked;
+
+        // Process Pulse Rates
+        const rates = {};
+        document.querySelectorAll('.r-val').forEach(input => {
+            rates[input.dataset.p] = input.value;
+        });
+        payload.rates = rates;
+        payload.pulses = Object.keys(rates).join(", ");
+
+        fetch(APP_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify(payload)
+        }).then(() => {
+            alert("Entry Saved Successfully!");
+            this.reset();
+            document.getElementById('rateInputsContainer').innerHTML = "";
+        }).catch(err => {
+            alert("Error: " + err);
+        }).finally(() => {
+            btn.disabled = false;
+            btn.innerHTML = "🚀 SUBMIT TO GOOGLE SHEET";
+        });
+    });
+</script>
+
+</body>
+</html>
