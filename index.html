@@ -6,10 +6,15 @@
     <title>Ayura Exim - Sourcing Tracker</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background: #f4f7f9; padding: 20px; font-family: 'Segoe UI', sans-serif; }
-        .tracker-card { max-width: 700px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .header { background: #1a73e8; color: white; padding: 20px; border-radius: 15px 15px 0 0; margin: -30px -30px 30px -30px; text-align: center; }
-        .section-title { font-weight: bold; color: #1a73e8; border-bottom: 2px solid #e8f0fe; padding-bottom: 5px; margin: 25px 0 15px 0; text-transform: uppercase; letter-spacing: 1px; }
+        body { background: #f0f2f5; font-family: 'Segoe UI', sans-serif; padding: 20px; }
+        .tracker-card { max-width: 850px; margin: auto; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: #1a73e8; color: white; padding: 25px; text-align: center; }
+        .form-body { padding: 30px; }
+        .section-header { font-weight: bold; color: #fff; padding: 10px 15px; border-radius: 5px; margin: 25px 0 15px 0; display: flex; align-items: center; }
+        .bg-quality { background: #5e35b1; } 
+        .bg-source { background: #00796b; }  
+        .bg-potential { background: #f9a825; } 
+        .bg-status { background: #c62828; }    
         .rate-box { background: #f8f9fa; padding: 15px; border-radius: 10px; border: 1px solid #dee2e6; margin-top: 10px; }
     </style>
 </head>
@@ -17,67 +22,117 @@
 
 <div class="tracker-card">
     <div class="header">
-        <h2>🌾 Ayura Exim</h2>
-        <p class="mb-0">Dal Mill Sourcing Data Entry</p>
+        <h2 class="mb-0">🌾 AYURA EXIM</h2>
+        <p class="mb-0">Dal Mill Sourcing & Business Intelligence</p>
     </div>
 
-    <form id="sourcingForm">
-        <div class="section-title">1. Mill Information</div>
+    <form id="sourcingForm" class="form-body">
+        <!-- Basic Info -->
         <div class="row g-3">
             <div class="col-md-6">
-                <label class="form-label">Mill Name</label>
-                <input type="text" name="millName" class="form-control" placeholder="Enter mill name" required>
+                <label class="form-label fw-bold">Mill Name</label>
+                <input type="text" name="millName" class="form-control" required>
             </div>
             <div class="col-md-6">
-                <label class="form-label">WhatsApp Number</label>
-                <input type="tel" name="whatsapp" class="form-control" placeholder="Enter number" required>
+                <label class="form-label fw-bold">WhatsApp Number</label>
+                <input type="tel" name="whatsapp" class="form-control" required>
             </div>
         </div>
 
-        <div class="section-title">2. Business Type</div>
-        <div class="mb-3">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="localDal" id="ld">
-                <label class="form-check-label" for="ld">Local Dal</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="importedDal" id="id">
-                <label class="form-check-label" for="id">Imported Dal</label>
-            </div>
-        </div>
-
-        <div class="section-title">3. Pulses & Live Rates</div>
-        <div class="mb-2"><small class="text-muted">Select pulses to enter current rates:</small></div>
-        <div class="btn-group-toggle mb-3">
+        <!-- Pulses Selection -->
+        <div class="section-header bg-primary">📊 PULSES & LIVE RATES</div>
+        <div class="btn-group-toggle mb-3 text-center">
             <input type="checkbox" class="btn-check p-opt" id="tur" value="Tur"> <label class="btn btn-outline-primary m-1" for="tur">Tur</label>
             <input type="checkbox" class="btn-check p-opt" id="chana" value="Chana"> <label class="btn btn-outline-primary m-1" for="chana">Chana</label>
             <input type="checkbox" class="btn-check p-opt" id="moong" value="Moong"> <label class="btn btn-outline-primary m-1" for="moong">Moong</label>
             <input type="checkbox" class="btn-check p-opt" id="urad" value="Urad"> <label class="btn btn-outline-primary m-1" for="urad">Urad</label>
+            <input type="checkbox" class="btn-check p-opt" id="masoor" value="Masoor"> <label class="btn btn-outline-primary m-1" for="masoor">Masoor</label>
         </div>
-
         <div id="rateInputsContainer"></div>
 
-        <div class="section-title">4. Status & Remarks</div>
+        <!-- 1. Quality Parameters -->
+        <div class="section-header bg-quality">⚖️ QUALITY PARAMETERS</div>
+        <div class="col-md-6">
+            <label class="form-label fw-bold">Quality Grade</label>
+            <select name="quality" class="form-select">
+                <option value="A">Grade A</option>
+                <option value="B">Grade B</option>
+                <option value="C">Grade C</option>
+            </select>
+        </div>
+
+        <!-- 2. Raw Material Source -->
+        <div class="section-header bg-source">🌍 RAW MATERIAL SOURCE</div>
         <div class="row g-3">
             <div class="col-md-6">
-                <label class="form-label">Current Status</label>
+                <label class="form-label fw-bold">Source Country</label>
+                <input type="text" name="country" class="form-control" placeholder="e.g. India, Australia">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Source Region/State</label>
+                <input type="text" name="state" class="form-control" placeholder="e.g. Maharashtra, MP">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Supplier Name (If shared)</label>
+                <input type="text" name="supplierName" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Monthly Procurement (MT)</label>
+                <input type="number" name="monthlyReq" class="form-control">
+            </div>
+        </div>
+
+        <!-- 3. Business Potential -->
+        <div class="section-header bg-potential">💰 BUSINESS POTENTIAL</div>
+        <div class="row g-3">
+            <div class="col-md-12">
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" name="buyFromUs" id="bp1">
+                    <label class="form-check-label" for="bp1">Will they buy Raw Material from us?</label>
+                </div>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" name="exportSupply" id="bp2">
+                    <label class="form-check-label" for="bp2">Can they supply for our Export orders?</label>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="retailSupply" id="bp3">
+                    <label class="form-check-label" for="bp3">Interested in Local Retail Supply?</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Monthly Capacity (MT)</label>
+                <input type="number" name="monthlyCap" class="form-control">
+            </div>
+        </div>
+
+        <!-- 4. Follow-up & Status -->
+        <div class="section-header bg-status">📌 FOLLOW-UP & STATUS</div>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Status</label>
                 <select name="status" class="form-select">
                     <option>Interested</option>
                     <option>Not Now</option>
                     <option>Closed</option>
+                    <option>Sample Requested</option>
                 </select>
             </div>
-            <div class="col-md-6">
-                <label class="form-label">Follow-up Date</label>
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Next Action</label>
+                <input type="text" name="nextAction" class="form-control" placeholder="e.g. Call back, Send Quote">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Follow-up Date</label>
                 <input type="date" name="followUpDate" class="form-control">
             </div>
             <div class="col-12">
-                <textarea name="remarks" class="form-control" rows="3" placeholder="Additional notes..."></textarea>
+                <label class="form-label fw-bold">Remarks / Notes</label>
+                <textarea name="remarks" class="form-control" rows="3"></textarea>
             </div>
         </div>
 
-        <div class="mt-4">
-            <button type="submit" id="submitBtn" class="btn btn-primary btn-lg w-100 fw-bold">🚀 SUBMIT TO GOOGLE SHEET</button>
+        <div class="mt-5 text-center">
+            <button type="submit" id="submitBtn" class="btn btn-primary btn-lg w-100 fw-bold shadow">🚀 SUBMIT SOURCING DATA</button>
         </div>
     </form>
 </div>
@@ -85,60 +140,52 @@
 <script>
     const APP_URL = "https://script.google.com/macros/s/AKfycbzg3lDLkTtQp8dcRYLmdohne_EFxU1ft1ofM-_wmt_Tf4_KLLsd88LITZFE4r9qwcc4/exec";
 
-    // Handle Dynamic Rate Fields
     document.querySelectorAll('.p-opt').forEach(cb => {
         cb.addEventListener('change', () => {
             const container = document.getElementById('rateInputsContainer');
             container.innerHTML = "";
             document.querySelectorAll('.p-opt:checked').forEach(checked => {
-                const name = checked.value;
                 container.innerHTML += `
                     <div class="rate-box">
-                        <label class="form-label">${name} Rate (₹/Qtl)</label>
-                        <input type="number" class="form-control r-val" data-p="${name}" placeholder="Current rate for ${name}">
+                        <label class="form-label fw-bold">${checked.value} Rate (₹/Qtl)</label>
+                        <input type="number" class="form-control r-val" data-p="${checked.value}" placeholder="Enter rate">
                     </div>`;
             });
         });
     });
 
-    // Form Submission
     document.getElementById('sourcingForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
         btn.disabled = true;
-        btn.innerHTML = "Processing...";
+        btn.innerHTML = "Sending to Ayura Tracker...";
 
         const formData = new FormData(this);
         const payload = Object.fromEntries(formData.entries());
 
-        // Process Checkboxes
-        payload.localDal = document.getElementById('ld').checked;
-        payload.importedDal = document.getElementById('id').checked;
-
-        // Process Pulse Rates
         const rates = {};
-        document.querySelectorAll('.r-val').forEach(input => {
-            rates[input.dataset.p] = input.value;
-        });
+        document.querySelectorAll('.r-val').forEach(i => rates[i.dataset.p] = i.value);
         payload.rates = rates;
         payload.pulses = Object.keys(rates).join(", ");
+
+        payload.buyFromUs = document.getElementById('bp1').checked;
+        payload.exportSupply = document.getElementById('bp2').checked;
+        payload.retailSupply = document.getElementById('bp3').checked;
 
         fetch(APP_URL, {
             method: 'POST',
             mode: 'no-cors',
             body: JSON.stringify(payload)
         }).then(() => {
-            alert("Entry Saved Successfully!");
+            alert("Entry successfully added to Google Sheet!");
             this.reset();
             document.getElementById('rateInputsContainer').innerHTML = "";
-        }).catch(err => {
-            alert("Error: " + err);
-        }).finally(() => {
+        }).catch(err => alert("Error: " + err))
+        .finally(() => {
             btn.disabled = false;
-            btn.innerHTML = "🚀 SUBMIT TO GOOGLE SHEET";
+            btn.innerHTML = "🚀 SUBMIT SOURCING DATA";
         });
     });
 </script>
-
 </body>
 </html>
